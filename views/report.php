@@ -211,8 +211,8 @@ function applyFilters() {
         date_from: $('#date_from').val(),
         date_to: $('#date_to').val(),
         staff_id: $('#staff_id').val(),
-        source: $('#source').val(),
-        status: $('#status').val(),
+        source_id: $('#source').val(),
+        status_id: $('#status').val(),
         custom_fields: {}
     };
 
@@ -303,8 +303,8 @@ function exportReport() {
         date_from: $('#date_from').val(),
         date_to: $('#date_to').val(),
         staff_id: $('#staff_id').val(),
-        source: $('#source').val(),
-        status: $('#status').val()
+        source_id: $('#source').val(),
+        status_id: $('#status').val()
     });
 
     // Add custom fields
