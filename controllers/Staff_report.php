@@ -41,6 +41,9 @@ class Staff_report extends AdminController
             'fieldto' => 'leads',
             'active'  => 1,
         ]);
+        
+        // Get countries for filter
+        $data['countries'] = get_all_countries();
 
         $this->load->view('report', $data);
     }

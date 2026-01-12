@@ -3,9 +3,9 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
-Module Name: Staff Report
-Description: Comprehensive staff lead status report with dynamic columns and advanced filtering
-Version: 1.0.0
+Module Name: Advanced Leads Report
+Description: Comprehensive staff lead performance report with dynamic status columns, advanced filtering, and ranking
+Version: 1.1.0
 Requires at least: 2.3.*
 Author: Staff Report Module
 Author URI: https://github.com/md-riaz/perfex_staff_report
@@ -51,7 +51,7 @@ function staff_report_module_init_menu_items()
         $CI->app_menu->add_sidebar_menu_item('staff-report', [
             'slug'     => 'staff-report',
             'name'     => _l('staff_report'),
-            'icon'     => 'fa fa-users',
+            'icon'     => 'fa fa-bar-chart',
             'href'     => admin_url('staff_report'),
             'position' => 15,
         ]);

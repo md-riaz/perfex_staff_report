@@ -27,28 +27,63 @@
                                         </a>
                                     </div>
                                     <div class="panel-body" id="filters-panel" style="display: block;">
+                                        <!-- Date Filters Section -->
+                                        <h5><i class="fa fa-calendar"></i> <?php echo _l('date_filters'); ?></h5>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="date_from"><?php echo _l('report_from'); ?></label>
+                                                    <label for="date_from"><?php echo _l('leads_dt_datecreated_from'); ?></label>
                                                     <input type="text" id="date_from" name="date_from" class="form-control datepicker" autocomplete="off">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="date_to"><?php echo _l('report_to'); ?></label>
+                                                    <label for="date_to"><?php echo _l('leads_dt_datecreated_to'); ?></label>
                                                     <input type="text" id="date_to" name="date_to" class="form-control datepicker" autocomplete="off">
                                                 </div>
                                             </div>
                                         </div>
-
+                                        
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="date_assigned_from"><?php echo _l('date_assigned_from'); ?></label>
+                                                    <input type="text" id="date_assigned_from" name="date_assigned_from" class="form-control datepicker" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="date_assigned_to"><?php echo _l('date_assigned_to'); ?></label>
+                                                    <input type="text" id="date_assigned_to" name="date_assigned_to" class="form-control datepicker" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="last_contact_from"><?php echo _l('last_contact_from'); ?></label>
+                                                    <input type="text" id="last_contact_from" name="last_contact_from" class="form-control datepicker" autocomplete="off">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="last_contact_to"><?php echo _l('last_contact_to'); ?></label>
+                                                    <input type="text" id="last_contact_to" name="last_contact_to" class="form-control datepicker" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <hr>
+                                        
+                                        <!-- System Filters Section -->
+                                        <h5><i class="fa fa-filter"></i> <?php echo _l('system_filters'); ?></h5>
                                         <?php if (has_permission('staff_report', '', 'view')) { ?>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="staff_id"><?php echo _l('staff_member'); ?></label>
-                                                    <select name="staff_id" id="staff_id" class="form-control selectpicker" data-live-search="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
-                                                        <option value=""><?php echo _l('staff_report_all_staff'); ?></option>
+                                                    <select name="staff_id" id="staff_id" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
                                                         <?php foreach ($staff_members as $member) { ?>
                                                             <option value="<?php echo $member['staffid']; ?>">
                                                                 <?php echo $member['firstname'] . ' ' . $member['lastname']; ?>
@@ -57,11 +92,10 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="source"><?php echo _l('lead_source'); ?></label>
-                                                    <select name="source" id="source" class="form-control selectpicker" data-live-search="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
-                                                        <option value=""><?php echo _l('leads_all'); ?></option>
+                                                    <select name="source" id="source" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
                                                         <?php foreach ($sources as $s) { ?>
                                                             <option value="<?php echo $s['id']; ?>">
                                                                 <?php echo $s['name']; ?>
@@ -70,20 +104,120 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <?php } ?>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="status"><?php echo _l('lead_status'); ?></label>
-                                                    <select name="status" id="status" class="form-control selectpicker" data-live-search="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
-                                                        <option value=""><?php echo _l('leads_all'); ?></option>
+                                                    <select name="status" id="status" class="form-control selectpicker" data-live-search="true" multiple data-actions-box="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
                                                         <?php foreach ($lead_statuses as $status) { ?>
                                                             <option value="<?php echo $status['id']; ?>">
                                                                 <?php echo $status['name']; ?>
                                                             </option>
                                                         <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php } ?>
+                                        
+                                        <hr>
+                                        
+                                        <!-- Lead Field Filters Section -->
+                                        <h5><i class="fa fa-user"></i> <?php echo _l('lead_fields'); ?></h5>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="name"><?php echo _l('lead_name'); ?></label>
+                                                    <input type="text" id="name" name="name" class="form-control" placeholder="<?php echo _l('search_by_name'); ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="email"><?php echo _l('lead_email'); ?></label>
+                                                    <input type="text" id="email" name="email" class="form-control" placeholder="<?php echo _l('search_by_email'); ?>">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="phone"><?php echo _l('lead_phone'); ?></label>
+                                                    <input type="text" id="phone" name="phone" class="form-control" placeholder="<?php echo _l('search_by_phone'); ?>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="country"><?php echo _l('clients_country'); ?></label>
+                                                    <select name="country" id="country" class="form-control selectpicker" data-live-search="true" data-none-selected-text="<?php echo _l('dropdown_non_selected_tex'); ?>">
+                                                        <option value=""><?php echo _l('dropdown_non_selected_tex'); ?></option>
+                                                        <?php foreach ($countries as $country) { ?>
+                                                            <option value="<?php echo $country['country_id']; ?>">
+                                                                <?php echo $country['short_name']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="city"><?php echo _l('clients_city'); ?></label>
+                                                    <input type="text" id="city" name="city" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="state"><?php echo _l('clients_state'); ?></label>
+                                                    <input type="text" id="state" name="state" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="zip"><?php echo _l('clients_zip'); ?></label>
+                                                    <input type="text" id="zip" name="zip" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="lead_value_from"><?php echo _l('lead_value_from'); ?></label>
+                                                    <input type="number" step="0.01" id="lead_value_from" name="lead_value_from" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="lead_value_to"><?php echo _l('lead_value_to'); ?></label>
+                                                    <input type="number" step="0.01" id="lead_value_to" name="lead_value_to" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="is_public"><?php echo _l('lead_public'); ?></label>
+                                                    <select name="is_public" id="is_public" class="form-control selectpicker">
+                                                        <option value=""><?php echo _l('dropdown_non_selected_tex'); ?></option>
+                                                        <option value="1"><?php echo _l('lead_public'); ?></option>
+                                                        <option value="0"><?php echo _l('lead_private'); ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="lost"><?php echo _l('lead_lost'); ?></label>
+                                                    <select name="lost" id="lost" class="form-control selectpicker">
+                                                        <option value=""><?php echo _l('dropdown_non_selected_tex'); ?></option>
+                                                        <option value="1"><?php echo _l('lead_lost'); ?></option>
+                                                        <option value="0"><?php echo _l('not_lost'); ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="junk"><?php echo _l('lead_junk'); ?></label>
+                                                    <select name="junk" id="junk" class="form-control selectpicker">
+                                                        <option value=""><?php echo _l('dropdown_non_selected_tex'); ?></option>
+                                                        <option value="1"><?php echo _l('lead_junk'); ?></option>
+                                                        <option value="0"><?php echo _l('not_junk'); ?></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -210,9 +344,25 @@ function applyFilters() {
     var filterData = {
         date_from: $('#date_from').val(),
         date_to: $('#date_to').val(),
+        date_assigned_from: $('#date_assigned_from').val(),
+        date_assigned_to: $('#date_assigned_to').val(),
+        last_contact_from: $('#last_contact_from').val(),
+        last_contact_to: $('#last_contact_to').val(),
         staff_id: $('#staff_id').val(),
         source_id: $('#source').val(),
         status_id: $('#status').val(),
+        name: $('#name').val(),
+        email: $('#email').val(),
+        phone: $('#phone').val(),
+        country: $('#country').val(),
+        city: $('#city').val(),
+        state: $('#state').val(),
+        zip: $('#zip').val(),
+        lead_value_from: $('#lead_value_from').val(),
+        lead_value_to: $('#lead_value_to').val(),
+        is_public: $('#is_public').val(),
+        lost: $('#lost').val(),
+        junk: $('#junk').val(),
         custom_fields: {}
     };
 
@@ -257,27 +407,46 @@ function renderReport(data) {
     thead.empty();
     tbody.empty();
 
-    // Build header
-    var headerHtml = '<th><?php echo _l('staff_member'); ?></th>';
+    // Build header with rank column
+    var headerHtml = '<th><?php echo _l('rank'); ?></th>';
+    headerHtml += '<th><?php echo _l('staff_member'); ?></th>';
     $.each(data.statuses, function(index, status) {
-        headerHtml += '<th style="background-color: ' + status.color + '; color: white;">' + 
+        headerHtml += '<th style="background-color: ' + status.color + '; color: white;" class="text-center">' + 
                       escapeHtml(status.name) + '</th>';
     });
-    headerHtml += '<th><strong><?php echo _l('total'); ?></strong></th>';
+    headerHtml += '<th class="text-center"><strong><?php echo _l('total'); ?></strong></th>';
     thead.html(headerHtml);
 
-    // Build body
+    // Build body with rankings and percentages
     var bodyHtml = '';
+    var rank = 1;
     $.each(data.data, function(index, row) {
         var isTotal = row.staff_id === null;
         var rowClass = isTotal ? 'bg-info text-bold' : '';
         
         bodyHtml += '<tr class="' + rowClass + '">';
+        
+        // Rank column
+        if (!isTotal) {
+            bodyHtml += '<td class="text-center"><strong>#' + rank + '</strong></td>';
+            rank++;
+        } else {
+            bodyHtml += '<td class="text-center"><strong>-</strong></td>';
+        }
+        
         bodyHtml += '<td>' + (isTotal ? '<strong>' : '') + escapeHtml(row.staff_name) + (isTotal ? '</strong>' : '') + '</td>';
         
         $.each(data.statuses, function(sIndex, status) {
             var count = row.status_counts[status.id] || 0;
-            bodyHtml += '<td class="text-center">' + (isTotal ? '<strong>' : '') + count + (isTotal ? '</strong>' : '') + '</td>';
+            var percentage = row.status_percentages && row.status_percentages[status.id] ? row.status_percentages[status.id] : 0;
+            var displayText = count;
+            
+            // Show percentage if available and not zero
+            if (count > 0 && percentage > 0) {
+                displayText += ' <small>(' + percentage + '%)</small>';
+            }
+            
+            bodyHtml += '<td class="text-center">' + (isTotal ? '<strong>' : '') + displayText + (isTotal ? '</strong>' : '') + '</td>';
         });
         
         bodyHtml += '<td class="text-center"><strong>' + row.total + '</strong></td>';
@@ -288,13 +457,22 @@ function renderReport(data) {
 }
 
 function resetFilters() {
-    $('#date_from').val('');
-    $('#date_to').val('');
-    $('#staff_id').val('').selectpicker('refresh');
-    $('#source').val('').selectpicker('refresh');
-    $('#status').val('').selectpicker('refresh');
+    // Reset date filters
+    $('#date_from, #date_to, #date_assigned_from, #date_assigned_to, #last_contact_from, #last_contact_to').val('');
+    
+    // Reset system filters
+    $('#staff_id, #source, #status').val('').selectpicker('refresh');
+    
+    // Reset lead field filters
+    $('#name, #email, #phone, #city, #state, #zip, #lead_value_from, #lead_value_to').val('');
+    $('#country, #is_public, #lost, #junk').val('').selectpicker('refresh');
+    
+    // Reset custom fields
     $('[name^="custom_fields["]').val('');
+    
+    // Refresh all selectpickers
     $('.selectpicker').selectpicker('refresh');
+    
     applyFilters();
 }
 
@@ -302,9 +480,25 @@ function exportReport() {
     var params = new URLSearchParams({
         date_from: $('#date_from').val(),
         date_to: $('#date_to').val(),
+        date_assigned_from: $('#date_assigned_from').val(),
+        date_assigned_to: $('#date_assigned_to').val(),
+        last_contact_from: $('#last_contact_from').val(),
+        last_contact_to: $('#last_contact_to').val(),
         staff_id: $('#staff_id').val(),
         source_id: $('#source').val(),
-        status_id: $('#status').val()
+        status_id: $('#status').val(),
+        name: $('#name').val(),
+        email: $('#email').val(),
+        phone: $('#phone').val(),
+        country: $('#country').val(),
+        city: $('#city').val(),
+        state: $('#state').val(),
+        zip: $('#zip').val(),
+        lead_value_from: $('#lead_value_from').val(),
+        lead_value_to: $('#lead_value_to').val(),
+        is_public: $('#is_public').val(),
+        lost: $('#lost').val(),
+        junk: $('#junk').val()
     });
 
     // Add custom fields
