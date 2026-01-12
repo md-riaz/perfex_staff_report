@@ -1,0 +1,112 @@
+/* Staff Report Module Styles */
+
+#staff-report-table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#staff-report-table thead th {
+    text-align: center;
+    vertical-align: middle;
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 12px 8px;
+}
+
+#staff-report-table tbody td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px 8px;
+}
+
+#staff-report-table tbody tr:last-child {
+    background-color: #f0f8ff;
+    font-weight: 600;
+    border-top: 2px solid #ddd;
+}
+
+#staff-report-table tbody tr:hover:not(:last-child) {
+    background-color: #f9f9f9;
+}
+
+.staff-report-status-header {
+    min-width: 100px;
+}
+
+#report-container {
+    margin-top: 20px;
+}
+
+#report-loading {
+    color: #666;
+}
+
+#report-loading i {
+    color: #28B8DA;
+}
+
+.panel-heading .fa-angle-down,
+.panel-heading .fa-angle-up {
+    transition: transform 0.3s ease;
+}
+
+#filters-panel {
+    padding-top: 15px;
+}
+
+.staff-report-export-btn {
+    margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+    #staff-report-table {
+        font-size: 12px;
+    }
+    
+    #staff-report-table thead th,
+    #staff-report-table tbody td {
+        padding: 8px 4px;
+    }
+}
+
+/* Status color badges */
+.status-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 3px;
+    color: white;
+    font-weight: 500;
+    font-size: 11px;
+}
+
+/* Responsive table wrapper */
+#report-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Filter panel styles */
+.panel-heading {
+    cursor: pointer;
+    user-select: none;
+}
+
+.panel-heading:hover {
+    background-color: #f5f5f5;
+}
+
+/* Total row emphasis */
+.bg-info.text-bold {
+    background-color: #d9edf7 !important;
+    font-weight: 700 !important;
+}
+
+/* Loading animation */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#report-container table {
+    animation: fadeIn 0.3s ease-in;
+}

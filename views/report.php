@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
 <?php init_head(); ?>
+<link href="<?php echo module_dir_url('staff_report', 'assets/css/staff_report.css'); ?>" rel="stylesheet" type="text/css" />
 <div id="wrapper">
     <div class="content">
         <div class="row">
@@ -229,8 +230,12 @@ function applyFilters() {
         data: filterData,
         dataType: 'json',
         success: function(response) {
-            reportData = response;
-            renderReport(response);
+            if (response.success) {
+                reportData = response;
+                renderReport(response);
+            } else {
+                alert(response.message || '<?php echo _l('error_loading_report'); ?>');
+            }
             $('#report-loading').hide();
             $('#report-container').show();
         },

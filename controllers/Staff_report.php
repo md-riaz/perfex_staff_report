@@ -10,6 +10,7 @@ class Staff_report extends AdminController
         $this->load->model('staff_report_model');
         $this->load->model('leads_model');
         $this->load->model('staff_model');
+        $this->load->helper('staff_report');
     }
 
     /**
@@ -56,25 +57,31 @@ class Staff_report extends AdminController
 
         $data = $this->input->post();
         
+        // Sanitize filters
+        $filters = staff_report_sanitize_filters($data);
+        
         // Check if user can only view own data
-        $staff_id = null;
         if (!has_permission('staff_report', '', 'view') && has_permission('staff_report', '', 'view_own')) {
-            $staff_id = get_staff_user_id();
-        } elseif (isset($data['staff_id']) && !empty($data['staff_id'])) {
-            $staff_id = $data['staff_id'];
+            $filters['staff_id'] = get_staff_user_id();
         }
 
-        $result = $this->staff_report_model->get_staff_lead_report([
-            'date_from'    => $data['date_from'] ?? null,
-            'date_to'      => $data['date_to'] ?? null,
-            'staff_id'     => $staff_id,
-            'source_id'    => $data['source'] ?? null,
-            'status_id'    => $data['status'] ?? null,
-            'custom_fields' => $data['custom_fields'] ?? [],
-        ]);
-
-        header('Content-Type: application/json');
-        echo json_encode($result);
+        try {
+            $result = $this->staff_report_model->get_staff_lead_report($filters);
+            
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success'  => true,
+                'data'     => $result['data'],
+                'statuses' => $result['statuses'],
+            ]);
+        } catch (Exception $e) {
+            log_message('error', 'Staff Report Error: ' . $e->getMessage());
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success' => false,
+                'message' => _l('error_loading_report'),
+            ]);
+        }
     }
 
     /**
@@ -89,43 +96,53 @@ class Staff_report extends AdminController
 
         $data = $this->input->get();
         
+        // Sanitize filters
+        $filters = staff_report_sanitize_filters($data);
+        
         // Check if user can only view own data
-        $staff_id = null;
         if (!has_permission('staff_report', '', 'view') && has_permission('staff_report', '', 'view_own')) {
-            $staff_id = get_staff_user_id();
-        } elseif (isset($data['staff_id']) && !empty($data['staff_id'])) {
-            $staff_id = $data['staff_id'];
+            $filters['staff_id'] = get_staff_user_id();
         }
 
-        $result = $this->staff_report_model->get_staff_lead_report([
-            'date_from'    => $data['date_from'] ?? null,
-            'date_to'      => $data['date_to'] ?? null,
-            'staff_id'     => $staff_id,
-            'source_id'    => $data['source'] ?? null,
-            'status_id'    => $data['status'] ?? null,
-            'custom_fields' => $data['custom_fields'] ?? [],
-        ]);
+        try {
+            $result = $this->staff_report_model->get_staff_lead_report($filters);
 
-        $this->load->helper('export');
-        
-        $headers = [_l('staff_member')];
-        foreach ($result['statuses'] as $status) {
-            $headers[] = $status['name'];
-        }
-        $headers[] = _l('total');
-
-        $rows = [];
-        foreach ($result['data'] as $row) {
-            $export_row = [$row['staff_name']];
+            // Prepare export data
+            $headers = [_l('staff_member')];
             foreach ($result['statuses'] as $status) {
-                $export_row[] = $row['status_counts'][$status['id']] ?? 0;
+                $headers[] = $status['name'];
             }
-            $export_row[] = $row['total'];
-            $rows[] = $export_row;
-        }
+            $headers[] = _l('total');
 
-        $filename = 'staff_lead_report_' . date('Y-m-d_H-i-s') . '.xlsx';
-        
-        export_excel($rows, $headers, $filename);
+            $rows = [];
+            foreach ($result['data'] as $row) {
+                $export_row = [$row['staff_name']];
+                foreach ($result['statuses'] as $status) {
+                    $export_row[] = $row['status_counts'][$status['id']] ?? 0;
+                }
+                $export_row[] = $row['total'];
+                $rows[] = $export_row;
+            }
+
+            // Use simple CSV export as fallback if export helper doesn't exist
+            $filename = 'staff_lead_report_' . date('Y-m-d_H-i-s') . '.csv';
+            
+            header('Content-Type: text/csv');
+            header('Content-Disposition: attachment; filename="' . $filename . '"');
+            
+            $output = fopen('php://output', 'w');
+            fputcsv($output, $headers);
+            
+            foreach ($rows as $row) {
+                fputcsv($output, $row);
+            }
+            
+            fclose($output);
+            exit;
+        } catch (Exception $e) {
+            log_message('error', 'Staff Report Export Error: ' . $e->getMessage());
+            set_alert('danger', _l('error_loading_report'));
+            redirect(admin_url('staff_report'));
+        }
     }
 }
