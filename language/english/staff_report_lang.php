@@ -50,3 +50,21 @@ $lang['search_by_email'] = 'Search by email';
 $lang['search_by_phone'] = 'Search by phone';
 $lang['rank'] = 'Rank';
 
+// Additional labels for lead fields and filters
+$lang['lead_name'] = 'Lead Name';
+$lang['lead_email'] = 'Lead Email';
+$lang['lead_phone'] = 'Lead Phone';
+$lang['dropdown_non_selected_tex'] = 'Nothing selected';
+$lang['leads_dt_datecreated_from'] = 'Date Created From';
+$lang['leads_dt_datecreated_to'] = 'Date Created To';
+$lang['custom_fields'] = 'Custom Fields';
+$lang['lead_source'] = 'Lead Source';
+$lang['lead_status'] = 'Lead Status';
+$lang['staff_member'] = 'Staff Member';
+$lang['total'] = 'Total';
+$lang['clients_country'] = 'Country';
+$lang['clients_city'] = 'City';
+$lang['clients_state'] = 'State';
+$lang['clients_zip'] = 'Zip Code';
+$lang['reset'] = 'Reset';
+
