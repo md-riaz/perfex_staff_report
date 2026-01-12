@@ -1,0 +1,62 @@
+{
+  "name": "Staff Report",
+  "version": "1.0.0",
+  "description": "Comprehensive staff lead status report with dynamic columns and advanced filtering",
+  "requires": {
+    "perfex": ">=2.3.0",
+    "php": ">=7.2.0"
+  },
+  "author": {
+    "name": "Staff Report Module",
+    "url": "https://github.com/md-riaz/perfex_staff_report"
+  },
+  "permissions": [
+    {
+      "key": "view",
+      "label": "View Staff Report",
+      "description": "Can view reports for all staff members"
+    },
+    {
+      "key": "view_own",
+      "label": "View Own Staff Report",
+      "description": "Can only view own lead statistics"
+    }
+  ],
+  "menu": {
+    "admin": [
+      {
+        "slug": "staff-report",
+        "name": "Staff Lead Report",
+        "icon": "fa fa-users",
+        "position": 15
+      }
+    ]
+  },
+  "features": [
+    "Dynamic lead status columns",
+    "Advanced filtering (date, staff, source, status, custom fields)",
+    "Permission-based access control",
+    "CSV/Excel export functionality",
+    "Responsive design",
+    "Real-time AJAX data loading",
+    "Total calculations per staff and status"
+  ],
+  "database": {
+    "tables": [
+      {
+        "name": "staff_report_settings",
+        "description": "Optional settings table for future enhancements"
+      }
+    ]
+  },
+  "hooks": [
+    "admin_init"
+  ],
+  "dependencies": {
+    "models": [
+      "leads_model",
+      "staff_model",
+      "custom_fields_model"
+    ]
+  }
+}
